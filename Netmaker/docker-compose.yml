@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  netmaker:
+    image: gravitl/netmaker:latest
+    container_name: netmaker
+    ports:
+      - 8081:8081
+      - 8082:8082
+      - 8083:8083
+    volumes:
+      - /data/netmaker:/app/data
+    environment:
+      - NETMAKER_DOMAIN=example.com
+      - NETMAKER_EMAIL=admin@example.com
+      - NETMAKER_PASSWORD=changeme
+      - NETMAKER_NETWORK=mynetwork
+    restart: unless-stopped
+
+  netmaker-agent:
+    image: gravitl/netmaker-agent:latest
+    container_name: netmaker-agent
+    environment:
+      - NETMAKER_SERVER=http://netmaker:8081
+      - NETMAKER_NODE_NAME=mynode
+      - NETMAKER_NETWORK=mynetwork
+    restart: unless-stopped
