@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  bunkerweb:
+    image: bunkerity/bunkerweb:latest
+    container_name: bunkerweb
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /data/bunkerweb:/data
+    environment:
+      - BUNKERWEB_DOMAIN=example.com
+      - BUNKERWEB_EMAIL=admin@example.com
+      - BUNKERWEB_PASSWORD=changeme
+    restart: unless-stopped
